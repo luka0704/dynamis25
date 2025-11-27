@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디나미스 합창단 재무보고서 2025</title>
+    <style>
+        :root {
+            --primary-color: #1e3a5f;
+            --secondary-color: #2c5f8d;
+            --accent-color: #4a90c2;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-bg: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-color: #212529;
+            --text-muted: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: var(--light-bg);
+            border-bottom: 3px solid var(--border-color);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            background: transparent;
+            font-size: 1em;
+            color: var(--text-muted);
+        }
+
+        .tab:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .card .amount {
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .card.success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        }
+
+        .card.warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .card.info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        thead {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--light-bg);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        .info-box {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .info-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .member-item {
+            background: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .member-item.active::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .deposit-row {
+            background: rgba(40, 167, 69, 0.05);
+        }
+
+        .withdraw-row {
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+            background: rgba(102, 126, 234, 0.1) !important;
+        }
+
+        .footer {
+            background: var(--light-bg);
+            padding: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .tabs, .tab {
+                display: none;
+            }
+            .section {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+            table {
+                font-size: 0.9em;
+            }
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 디나미스 합창단 재무보고서</h1>
+            <p>2025년 1월 1일 ~ 11월 26일</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection(0)">📊 요약</button>
+            <button class="tab" onclick="showSection(1)">👥 회원 현황</button>
+            <button class="tab" onclick="showSection(2)">📅 월별 수지</button>
+            <button class="tab" onclick="showSection(3)">💰 지출 내역</button>
+            <button class="tab" onclick="showSection(4)">📋 입출금 내역</button>
+        </div>
+
+        <div class="content">
+            <!-- Section 1: 요약 -->
+            <div class="section active">
+                <h2 class="section-title">재무 현황 요약</h2>
+                
+                <div class="summary-cards">
+                    <div class="card info">
+                        <h3>총 수입</h3>
+                        <div class="amount">16,197,340원</div>
+                    </div>
+                    <div class="card warning">
+                        <h3>총 지출</h3>
+                        <div class="amount">13,452,850원</div>
+                    </div>
+                    <div class="card success">
+                        <h3>최종 수지</h3>
+                        <div class="amount">+2,744,490원</div>
+                    </div>
+                    <div class="card">
+                        <h3>기말 잔액</h3>
+                        <div class="amount">8,377,859원</div>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    🎉 2025년 회비 납부율 100% 달성! 미납 0명!
+                </div>
+
+                <div class="info-box">
+                    <h4>📈 주요 성과</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>회비 납부율 100% 달성 (전체 회원 정상 납부)</li>
+                        <li>최종 흑자 2,744,490원 달성</li>
+                        <li>문화사업 지원금 3,510,000원 확보</li>
+                        <li>안정적인 기금 확보 (기말 잔액 8,377,859원)</li>
+                        <li>투명한 재무 관리 및 회계 처리</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">수입 구성</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th class="text-right">금액</th>
+                            <th class="text-right">비중</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>회비 수입</td>
+                            <td class="text-right">11,550,000원</td>
+                            <td class="text-right">71.3%</td>
+                        </tr>
+                        <tr>
+                            <td>문화사업 지원금</td>
+                            <td class="text-right">3,510,000원</td>
+                            <td class="text-right">21.7%</td>
+                        </tr>
+                        <tr>
+                            <td>모임비</td>
+                            <td class="text-right">340,000원</td>
+                            <td class="text-right">2.1%</td>
+                        </tr>
+                        <tr>
+                            <td>기타 수입</td>
+                            <td class="text-right">797,340원</td>
+                            <td class="text-right">4.9%</td>
+                        </tr>
+                        <tr style="background: var(--light-bg); font-weight: bold;">
+                            <td>총계</td>
+                            <td class="text-right">16,197,340원</td>
+                            <td class="text-right">100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 2: 회원 현황 -->
+            <div class="section">
+                <h2 class="section-title">회원별 납부 현황</h2>
+
+                <div class="info-box">
+                    <h4>✅ 정상 납부자 (20명)</h4>
+                    <p><strong>일반회원 (50,000원/월):</strong></p>
+                    <div class="member-grid">
+                        <div class="member-item active">박도영</div>
+                        <div class="member-item active">박수민</div>
+                        <div class="member-item active">남은숙</div>
+                        <div class="member-item active">이윤옥</div>
+                        <div class="member-item active">한흥식</div>
+                        <div class="member-item active">조현수</div>
+                        <div class="member-item active">윤진우</div>
+                        <div class="member-item active">안현정</div>
+                        <div class="member-item active">천은아</div>
+                        <div class="member-item active">조지현</div>
+                        <div class="member-item active">이별님</div>
+                        <div class="member-item active">임종진</div>
+                    </div>
+                    
+                    <p style="margin-top: 20px;"><strong>부부회원 (40,000원/월):</strong></p>
+                    <div class="member-grid">
+                        <div class="member-item active">이응선</div>
+                        <div class="member-item active">김재향</div>
+                        <div class="member-item active">김미영</div>
+                        <div class="member-item active">김정수</div>
+                        <div class="member-item active">윤정아</div>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>특수회원:</strong></p>
+                    <div class="member-grid">
+                        <div class="member-item active">정지희 (연 600,000원)</div>
+                        <div class="member-item active">장업 (1년 선납)</div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="border-left-color: var(--warning-color);">
+                    <h4>⏳ 상반기 회비만 납부 (2명)</h4>
+                    <div class="member-grid">
+                        <div class="member-item">안상기 (300,000원)</div>
+                        <div class="member-item">박철호 (300,000원)</div>
+                    </div>
+                    <p style="margin-top: 10px; color: var(--text-muted);">※ 하반기 추가납부 예정</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>📋 특이사항</h4>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>이응선 & 김재향:</strong> 7월부터 이응선이 부부회비 합산 입금 (80,000원)</li>
+                        <li><strong>조지현:</strong> 6월에 100,000원 추가 납부 (선납)</li>
+                        <li><strong>이별님:</strong> 4월에 200,000원 선납으로 시작</li>
+                        <li><strong>정미애:</strong> 2025년 6월 탈퇴 (6개월 활동)</li>
+                        <li><strong>김승연:</strong> 2025년 10월 입단 (2개월 활동)</li>
+                    </ul>
+                </div>
+
+                <table style="margin-top: 30px;">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th class="text-center">인원</th>
+                            <th class="text-right">금액</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>정상 납부</td>
+                            <td class="text-center">20명</td>
+                            <td class="text-right">11,550,000원</td>
+                        </tr>
+                        <tr>
+                            <td>미납</td>
+                            <td class="text-center"><span class="badge badge-success">0명</span></td>
+                            <td class="text-right">0원</td>
+                        </tr>
+                        <tr>
+                            <td>상반기만</td>
+                            <td class="text-center">2명</td>
+                            <td class="text-right">600,000원</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 3: 월별 수지 -->
+            <div class="section">
+                <h2 class="section-title">월별 수지 현황</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>월</th>
+                            <th class="text-right">수입</th>
+                            <th class="text-right">지출</th>
+                            <th class="text-right">월별수지</th>
+                            <th class="text-right">누적수지</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-01</td>
+                            <td class="text-right">1,700,408</td>
+                            <td class="text-right">2,497,020</td>
+                            <td class="text-right" style="color: var(--danger-color);">-796,612</td>
+                            <td class="text-right" style="color: var(--danger-color);">-796,612</td>
+                        </tr>
+                        <tr>
+                            <td>2025-02</td>
+                            <td class="text-right">903,700</td>
+                            <td class="text-right">1,110,000</td>
+                            <td class="text-right" style="color: var(--danger-color);">-206,300</td>
+                            <td class="text-right" style="color: var(--danger-color);">-1,002,912</td>
+                        </tr>
+                        <tr>
+                            <td>2025-03</td>
+                            <td class="text-right">1,449,000</td>
+                            <td class="text-right">950,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+499,000</td>
+                            <td class="text-right" style="color: var(--danger-color);">-503,912</td>
+                        </tr>
+                        <tr>
+                            <td>2025-04</td>
+                            <td class="text-right">960,000</td>
+                            <td class="text-right">950,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+10,000</td>
+                            <td class="text-right" style="color: var(--danger-color);">-493,912</td>
+                        </tr>
+                        <tr>
+                            <td>2025-05</td>
+                            <td class="text-right">860,000</td>
+                            <td class="text-right">350,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+510,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+16,088</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td>2025-06</td>
+                            <td class="text-right">3,502,766</td>
+                            <td class="text-right">2,529,830</td>
+                            <td class="text-right" style="color: var(--success-color); font-weight: bold;">+972,936</td>
+                            <td class="text-right" style="color: var(--success-color); font-weight: bold;">+989,024</td>
+                        </tr>
+                        <tr>
+                            <td>2025-07</td>
+                            <td class="text-right">1,171,103</td>
+                            <td class="text-right">1,551,000</td>
+                            <td class="text-right" style="color: var(--danger-color);">-379,897</td>
+                            <td class="text-right" style="color: var(--success-color);">+609,127</td>
+                        </tr>
+                        <tr>
+                            <td>2025-08</td>
+                            <td class="text-right">1,600,363</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right" style="color: var(--success-color);">+1,600,363</td>
+                            <td class="text-right" style="color: var(--success-color);">+2,209,490</td>
+                        </tr>
+                        <tr>
+                            <td>2025-09</td>
+                            <td class="text-right">910,000</td>
+                            <td class="text-right">2,115,000</td>
+                            <td class="text-right" style="color: var(--danger-color);">-1,205,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+1,004,490</td>
+                        </tr>
+                        <tr>
+                            <td>2025-10</td>
+                            <td class="text-right">1,810,000</td>
+                            <td class="text-right">1,400,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+410,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+1,414,490</td>
+                        </tr>
+                        <tr>
+                            <td>2025-11</td>
+                            <td class="text-right">1,330,000</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right" style="color: var(--success-color);">+1,330,000</td>
+                            <td class="text-right" style="color: var(--success-color);">+2,744,490</td>
+                        </tr>
+                        <tr style="background: var(--light-bg); font-weight: bold;">
+                            <td>합계</td>
+                            <td class="text-right">16,197,340</td>
+                            <td class="text-right">13,452,850</td>
+                            <td class="text-right" style="color: var(--success-color);">+2,744,490</td>
+                            <td class="text-right">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h4>📊 월별 분석</h4>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>1-4월:</strong> 초기 운영비로 적자 기간 (-1,002,912원)</li>
+                        <li><strong>5월:</strong> 흑자 전환 시작 (+16,088원)</li>
+                        <li><strong>6월:</strong> 문화사업 지원금 수령으로 대폭 흑자 (+989,024원)</li>
+                        <li><strong>8월:</strong> 지출 없는 달로 누적수지 증가 (+2,209,490원)</li>
+                        <li><strong>9월:</strong> 공연 관련 지출 집중 (2,115,000원)</li>
+                        <li><strong>11월:</strong> 최종 누적 흑자 확정 (+2,744,490원)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 4: 지출 내역 -->
+            <div class="section">
+                <h2 class="section-title">지출 카테고리별 내역</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>분류</th>
+                            <th class="text-right">금액</th>
+                            <th class="text-right">비중</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>고정 사례비</strong></td>
+                            <td class="text-right"><strong>9,500,000원</strong></td>
+                            <td class="text-right"><strong>70.6%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 지휘자 사례비</td>
+                            <td class="text-right">5,000,000원</td>
+                            <td class="text-right">37.2%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 반주자 사례비</td>
+                            <td class="text-right">2,500,000원</td>
+                            <td class="text-right">18.6%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 솔리스트 사례비</td>
+                            <td class="text-right">2,000,000원</td>
+                            <td class="text-right">14.9%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>공연/행사 관련</strong></td>
+                            <td class="text-right"><strong>1,330,000원</strong></td>
+                            <td class="text-right"><strong>9.9%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 공연 사례비</td>
+                            <td class="text-right">450,000원</td>
+                            <td class="text-right">3.3%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 공연 뒷풀이</td>
+                            <td class="text-right">440,000원</td>
+                            <td class="text-right">3.3%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 야유회/행사비</td>
+                            <td class="text-right">440,000원</td>
+                            <td class="text-right">3.3%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>물품/용역 구입</strong></td>
+                            <td class="text-right"><strong>1,451,230원</strong></td>
+                            <td class="text-right"><strong>10.8%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 드레스(의상)</td>
+                            <td class="text-right">480,000원</td>
+                            <td class="text-right">3.6%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 악보 구입</td>
+                            <td class="text-right">303,400원</td>
+                            <td class="text-right">2.3%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 마트/물품 구매</td>
+                            <td class="text-right">667,830원</td>
+                            <td class="text-right">5.0%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>회의비/기타</strong></td>
+                            <td class="text-right"><strong>1,171,620원</strong></td>
+                            <td class="text-right"><strong>8.7%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 민예총 회비</td>
+                            <td class="text-right">300,000원</td>
+                            <td class="text-right">2.2%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 총회/회의비</td>
+                            <td class="text-right">354,620원</td>
+                            <td class="text-right">2.6%</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;└ 기타</td>
+                            <td class="text-right">517,000원</td>
+                            <td class="text-right">3.8%</td>
+                        </tr>
+                        <tr style="background: var(--light-bg); font-weight: bold;">
+                            <td>총 지출</td>
+                            <td class="text-right">13,452,850원</td>
+                            <td class="text-right">100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <h4>💡 지출 분석</h4>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>사례비 (70.6%):</strong> 합창단 운영의 핵심 비용으로 안정적 지급 유지</li>
+                        <li><strong>공연/행사 (9.9%):</strong> 문화 활동 및 회원 친목 도모에 적절한 배분</li>
+                        <li><strong>물품/용역 (10.8%):</strong> 공연 환경 개선 및 필수 물품 구입</li>
+                        <li><strong>회의비/기타 (8.7%):</strong> 행정 운영 및 외부 단체 회비</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="border-left-color: var(--success-color);">
+                    <h4>✅ 사례비 지급 내역</h4>
+                    <table style="margin-top: 10px;">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th class="text-right">월 지급액</th>
+                                <th class="text-center">지급 횟수</th>
+                                <th class="text-right">총액</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>지휘자</td>
+                                <td class="text-right">500,000원</td>
+                                <td class="text-center">10회</td>
+                                <td class="text-right">5,000,000원</td>
+                            </tr>
+                            <tr>
+                                <td>반주자</td>
+                                <td class="text-right">250,000원</td>
+                                <td class="text-center">10회</td>
+                                <td class="text-right">2,500,000원</td>
+                            </tr>
+                            <tr>
+                                <td>솔리스트</td>
+                                <td class="text-right">200,000원</td>
+                                <td class="text-center">10회</td>
+                                <td class="text-right">2,000,000원</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 10px; color: var(--text-muted);">※ 솔리스트: 1-3월 원소희, 4월~ 박소정</p>
+                </div>
+            </div>
+
+            <!-- Section 5: 입출금 내역 -->
+            <div class="section">
+                <h2 class="section-title">📋 전체 입출금 내역</h2>
+                
+                <div class="info-box">
+                    <h4>📊 거래 통계</h4>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>총 거래 건수:</strong> 290건</li>
+                        <li><strong>입금 건수:</strong> 176건 (16,197,340원)</li>
+                        <li><strong>출금 건수:</strong> 114건 (13,452,850원)</li>
+                    </ul>
+                </div>
+
+                <div style="overflow-x: auto; margin-top: 20px;">
+                    <table style="font-size: 0.9em;">
+                        <thead>
+                            <tr>
+                                <th>거래일자</th>
+                                <th class="text-center">시간</th>
+                                <th class="text-right">입금</th>
+                                <th class="text-right">출금</th>
+                                <th class="text-right">잔액</th>
+                                <th>거래내용</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionTableBody">
+                            <!-- 거래 내역이 여기에 추가됩니다 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>디나미스 합창단</strong></p>
+            <p>보고서 작성일: 2025년 11월 26일</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">본 재무보고서는 투명한 회계 처리를 위해 작성되었습니다.</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(index) {
+            const sections = document.querySelectorAll('.section');
+            const tabs = document.querySelectorAll('.tab');
+            
+            sections.forEach((section, i) => {
+                if (i === index) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+            
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+        }
+
+        // 페이지 로드 시 애니메이션
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.container').style.animation = 'fadeIn 0.8s ease-in-out';
+            loadTransactions();
+        });
+
+        // 입출금 내역 로드
+        function loadTransactions() {
+            const transactions = [
+                ["2025-01-02","09:30:15","0","50000","5583369","총회장소대여"],
+                ["2025-01-02","09:30:36","0","80000","5503369","회비환급(중복)"],
+                ["2025-01-08","09:10:26","10000","0","5513369","정지희"],
+                ["2025-01-15","09:34:56","50000","0","5563369","천은아"],
+                ["2025-01-15","09:35:00","50000","0","5613369","한흥식"],
+                ["2025-01-16","09:09:12","50000","0","5663369","박도영"],
+                ["2025-01-18","09:06:44","50000","0","5713369","조현수"],
+                ["2025-01-20","09:34:47","50000","0","5763369","윤진우"],
+                ["2025-01-22","09:00:28","50000","0","5813369","안현정"],
+                ["2025-01-22","11:51:37","200000","0","6013369","이별님"],
+                ["2025-01-23","09:39:37","50000","0","6063369","박수민"],
+                ["2025-01-25","09:38:50","50000","0","6113369","이윤옥"],
+                ["2025-01-28","09:10:26","50000","0","6163369","남은숙"],
+                ["2025-01-31","01:31:39","40000","0","6203369","김재향회비"],
+                ["2025-01-31","01:31:39","80000","0","6283369","이응선"],
+                ["2025-01-31","09:00:11","0","500000","5783369","지휘자사례비"],
+                ["2025-01-31","09:00:48","0","250000","5533369","반주자사례비"],
+                ["2025-01-31","09:01:18","0","200000","5333369","원소희사례비"],
+                ["2025-01-31","09:01:50","0","120000","5213369","상품권"],
+                ["2025-01-31","09:02:55","0","110000","5103369","꽃"],
+                ["2025-01-31","10:19:05","50000","0","5153369","조지현"],
+                ["2025-01-31","21:17:41","300408","0","5453777","민예총지원금"],
+                ["2025-01-31","22:46:50","0","1217020","4236757","롯데마트"],
+                ["2025-02-03","09:27:43","0","60000","4176757","클라우드"],
+                ["2025-02-04","15:11:03","50000","0","4226757","임종진"],
+                ["2025-02-10","09:22:12","50000","0","4276757","최영희"],
+                ["2025-02-12","10:03:02","0","150000","4126757","BBQ"],
+                ["2025-02-14","09:46:12","50000","0","4176757","윤진우"],
+                ["2025-02-17","09:48:15","50000","0","4226757","조현수"],
+                ["2025-02-19","09:11:37","50000","0","4276757","천은아"],
+                ["2025-02-25","09:48:43","40000","0","4316757","윤정아"],
+                ["2025-02-25","18:43:43","40000","0","4356757","김재향회비"],
+                ["2025-02-28","09:03:36","0","500000","3856757","지휘자사례비"],
+                ["2025-02-28","09:04:04","0","250000","3606757","반주자사례비"],
+                ["2025-02-28","09:04:28","0","200000","3406757","원소희사례비"],
+                ["2025-02-28","09:32:45","50000","0","3456757","남은숙"],
+                ["2025-02-28","09:32:45","50000","0","3506757","박수민"],
+                ["2025-02-28","09:32:45","50000","0","3556757","박도영"],
+                ["2025-02-28","09:32:45","50000","0","3606757","안현정"],
+                ["2025-02-28","09:32:45","50000","0","3656757","이윤옥"],
+                ["2025-02-28","09:32:45","50000","0","3706757","한흥식"],
+                ["2025-02-28","09:48:15","50000","0","3756757","조지현"],
+                ["2025-02-28","22:55:59","0","160000","3596757","피아노대여"],
+                ["2025-03-01","09:06:26","50000","0","3646757","임종진"],
+                ["2025-03-01","09:06:26","50000","0","3696757","이별님"],
+                ["2025-03-05","09:17:20","40000","0","3736757","김정수"],
+                ["2025-03-06","09:06:26","50000","0","3786757","최영희"],
+                ["2025-03-07","18:43:43","40000","0","3826757","김재향회비"],
+                ["2025-03-11","09:10:05","50000","0","3876757","윤진우"],
+                ["2025-03-12","09:30:52","50000","0","3926757","천은아"],
+                ["2025-03-17","09:46:12","50000","0","3976757","조현수"],
+                ["2025-03-18","09:28:02","0","480000","3496757","드레스"],
+                ["2025-03-22","09:18:04","50000","0","3546757","안현정"],
+                ["2025-03-25","09:34:04","50000","0","3596757","박도영"],
+                ["2025-03-26","09:33:05","50000","0","3646757","조지현"],
+                ["2025-03-26","09:47:13","50000","0","3696757","남은숙"],
+                ["2025-03-26","09:47:13","50000","0","3746757","박수민"],
+                ["2025-03-26","09:47:13","50000","0","3796757","이윤옥"],
+                ["2025-03-26","09:47:13","50000","0","3846757","한흥식"],
+                ["2025-03-28","09:06:26","50000","0","3896757","임종진"],
+                ["2025-03-28","09:06:26","50000","0","3946757","이별님"],
+                ["2025-03-31","09:00:28","0","500000","3446757","지휘자사례비"],
+                ["2025-03-31","09:00:56","0","250000","3196757","반주자사례비"],
+                ["2025-03-31","09:01:21","0","200000","2996757","박소정사례비"],
+                ["2025-03-31","09:08:07","40000","0","3036757","김미영"],
+                ["2025-03-31","10:18:00","20000","0","3056757","박도영"],
+                ["2025-03-31","10:18:00","40000","0","3096757","윤정아"],
+                ["2025-03-31","10:18:00","600000","0","3696757","정지희"],
+                ["2025-04-01","09:22:36","50000","0","3746757","천은아"],
+                ["2025-04-08","09:11:37","50000","0","3796757","조현수"],
+                ["2025-04-15","09:03:30","40000","0","3836757","김재향"],
+                ["2025-04-20","09:09:12","50000","0","3886757","윤진우"],
+                ["2025-04-24","09:37:17","50000","0","3936757","안현정"],
+                ["2025-04-27","09:33:05","50000","0","3986757","조지현"],
+                ["2025-04-28","09:38:50","50000","0","4036757","이윤옥"],
+                ["2025-04-28","09:41:53","0","500000","3536757","지휘자사례비"],
+                ["2025-04-28","09:41:53","0","250000","3286757","반주자사례비"],
+                ["2025-04-28","09:41:53","0","200000","3086757","박소정사례비"],
+                ["2025-04-28","09:41:53","50000","0","3136757","박도영"],
+                ["2025-04-28","09:41:53","50000","0","3186757","남은숙"],
+                ["2025-04-28","09:41:53","50000","0","3236757","박수민"],
+                ["2025-04-28","09:41:53","50000","0","3286757","한흥식"],
+                ["2025-04-28","11:51:37","200000","0","3486757","이별님"],
+                ["2025-05-02","09:18:04","50000","0","3536757","임종진"],
+                ["2025-05-06","09:24:37","50000","0","3586757","최영희"],
+                ["2025-05-10","09:06:44","50000","0","3636757","조현수"],
+                ["2025-05-12","09:47:13","50000","0","3686757","천은아"],
+                ["2025-05-15","08:58:02","40000","0","3726757","김재향"],
+                ["2025-05-19","09:00:28","50000","0","3776757","윤진우"],
+                ["2025-05-21","09:18:04","50000","0","3826757","안현정"],
+                ["2025-05-24","09:28:45","50000","0","3876757","박도영"],
+                ["2025-05-26","09:10:26","50000","0","3926757","이윤옥"],
+                ["2025-05-26","09:10:26","50000","0","3976757","남은숙"],
+                ["2025-05-26","09:10:26","50000","0","4026757","박수민"],
+                ["2025-05-26","09:10:26","50000","0","4076757","한흥식"],
+                ["2025-05-27","08:54:02","50000","0","4126757","이별님"],
+                ["2025-05-28","09:37:17","50000","0","4176757","조지현"],
+                ["2025-05-28","09:37:17","50000","0","4226757","임종진"],
+                ["2025-05-31","09:00:07","0","200000","4026757","박소정사례비"],
+                ["2025-05-31","09:00:34","0","150000","3876757","공연사례비"],
+                ["2025-05-31","09:09:12","40000","0","3916757","김미영"],
+                ["2025-05-31","09:09:12","40000","0","3956757","김정수"],
+                ["2025-05-31","09:09:12","40000","0","3996757","윤정아"],
+                ["2025-06-03","09:18:04","300000","0","4296757","안상기"],
+                ["2025-06-09","22:27:27","100000","0","4396757","조지현"],
+                ["2025-06-09","23:16:47","10000","0","4406757","이별님"],
+                ["2025-06-12","09:33:05","50000","0","4456757","임종진"],
+                ["2025-06-16","01:02:11","40000","0","4496757","김재향회비"],
+                ["2025-06-16","08:52:06","40000","0","4536757","김재향"],
+                ["2025-06-17","09:06:26","50000","0","4586757","윤진우"],
+                ["2025-06-18","09:17:20","50000","0","4636757","조현수"],
+                ["2025-06-23","09:18:04","50000","0","4686757","천은아"],
+                ["2025-06-25","09:09:12","50000","0","4736757","안현정"],
+                ["2025-06-26","09:47:13","50000","0","4786757","박도영"],
+                ["2025-06-27","06:59:06","50000","0","4836757","이별님"],
+                ["2025-06-27","09:18:04","50000","0","4886757","이윤옥"],
+                ["2025-06-27","09:18:04","50000","0","4936757","남은숙"],
+                ["2025-06-27","09:18:04","50000","0","4986757","박수민"],
+                ["2025-06-27","09:18:04","50000","0","5036757","한흥식"],
+                ["2025-06-28","09:22:36","50000","0","5086757","최영희"],
+                ["2025-06-30","09:00:11","0","500000","4586757","지휘자사례비"],
+                ["2025-06-30","09:00:35","0","250000","4336757","반주자사례비"],
+                ["2025-06-30","09:01:02","0","200000","4136757","박소정사례비"],
+                ["2025-06-30","09:01:30","0","150000","3986757","공연사례비"],
+                ["2025-06-30","09:02:05","0","440000","3546757","공연뒷풀이"],
+                ["2025-06-30","09:02:38","0","300000","3246757","민예총회비"],
+                ["2025-06-30","09:03:30","0","303400","2943357","악보"],
+                ["2025-06-30","09:04:04","0","50000","2893357","곡사용료"],
+                ["2025-06-30","09:04:39","0","121000","2772357","짬뽕"],
+                ["2025-06-30","09:05:18","0","112620","2659737","고을"],
+                ["2025-06-30","09:05:56","0","40000","2619737","장소대여"],
+                ["2025-06-30","09:06:26","0","2000","2617737","출금수수료"],
+                ["2025-06-30","09:47:13","50000","0","2667737","이응선"],
+                ["2025-06-30","09:47:13","40000","0","2707737","김미영"],
+                ["2025-06-30","09:47:13","40000","0","2747737","김정수"],
+                ["2025-06-30","09:47:13","40000","0","2787737","윤정아"],
+                ["2025-06-30","09:47:13","600000","0","3387737","장업"],
+                ["2025-06-30","09:47:13","300000","0","3687737","박철호"],
+                ["2025-06-30","22:50:32","2814029","0","6501766","문화관광"],
+                ["2025-07-01","09:18:04","50000","0","6551766","조지현"],
+                ["2025-07-07","09:09:12","50000","0","6601766","윤진우"],
+                ["2025-07-08","09:11:37","50000","0","6651766","조현수"],
+                ["2025-07-10","09:37:17","50000","0","6701766","천은아"],
+                ["2025-07-14","09:09:12","50000","0","6751766","안현정"],
+                ["2025-07-15","09:11:18","40000","0","6791766","김재향"],
+                ["2025-07-16","09:00:28","50000","0","6841766","박도영"],
+                ["2025-07-23","09:09:53","50000","0","6891766","이별님"],
+                ["2025-07-25","09:09:12","50000","0","6941766","이윤옥"],
+                ["2025-07-25","09:09:12","50000","0","6991766","남은숙"],
+                ["2025-07-25","09:09:12","50000","0","7041766","박수민"],
+                ["2025-07-25","09:09:12","50000","0","7091766","한흥식"],
+                ["2025-07-28","08:21:35","80000","0","7171766","이응선 김재향"],
+                ["2025-07-29","09:18:04","50000","0","7221766","임종진"],
+                ["2025-07-30","09:35:22","40000","0","7261766","김재향중복환급"],
+                ["2025-07-30","22:55:21","10000","0","7271766","윤정아"],
+                ["2025-07-31","09:00:11","0","500000","6771766","지휘자사례비"],
+                ["2025-07-31","09:00:35","0","250000","6521766","반주자사례비"],
+                ["2025-07-31","09:01:02","0","200000","6321766","박소정사례비"],
+                ["2025-07-31","09:01:30","0","150000","6171766","공연사례비"],
+                ["2025-07-31","09:02:20","0","112000","6059766","식사"],
+                ["2025-07-31","09:02:58","0","121000","5938766","원예"],
+                ["2025-07-31","09:03:30","0","71000","5867766","선물"],
+                ["2025-07-31","09:11:18","0","50000","5817766","출금"],
+                ["2025-07-31","09:11:18","0","10000","5807766","회의비"],
+                ["2025-07-31","09:36:45","50000","0","5857766","최영희"],
+                ["2025-07-31","09:38:50","40000","0","5897766","김미영"],
+                ["2025-07-31","09:38:50","40000","0","5937766","김정수"],
+                ["2025-07-31","09:38:50","40000","0","5977766","윤정아"],
+                ["2025-08-04","09:09:12","50000","0","6027766","조지현"],
+                ["2025-08-05","09:28:02","50000","0","6077766","윤진우"],
+                ["2025-08-06","09:24:37","50000","0","6127766","조현수"],
+                ["2025-08-14","09:22:12","50000","0","6177766","천은아"],
+                ["2025-08-16","09:33:05","50000","0","6227766","안현정"],
+                ["2025-08-18","09:38:50","40000","0","6267766","김재향"],
+                ["2025-08-19","09:09:12","50000","0","6317766","박도영"],
+                ["2025-08-25","09:18:04","50000","0","6367766","이윤옥"],
+                ["2025-08-25","09:18:04","50000","0","6417766","남은숙"],
+                ["2025-08-25","09:18:04","50000","0","6467766","박수민"],
+                ["2025-08-25","09:18:04","50000","0","6517766","한흥식"],
+                ["2025-08-27","08:52:17","50000","0","6567766","이별님"],
+                ["2025-08-27","09:28:02","300000","0","6867766","정미애"],
+                ["2025-08-28","08:11:13","80000","0","6947766","이응선 김재향"],
+                ["2025-08-28","09:32:45","50000","0","6997766","임종진"],
+                ["2025-08-31","09:11:18","363","0","6998129","이자"],
+                ["2025-08-31","09:11:18","40000","0","7038129","김미영"],
+                ["2025-08-31","09:11:18","40000","0","7078129","김정수"],
+                ["2025-08-31","09:11:18","40000","0","7118129","윤정아"],
+                ["2025-09-02","09:22:36","50000","0","7168129","조지현"],
+                ["2025-09-03","09:00:28","50000","0","7218129","윤진우"],
+                ["2025-09-04","09:24:37","50000","0","7268129","조현수"],
+                ["2025-09-09","09:17:20","50000","0","7318129","천은아"],
+                ["2025-09-16","09:18:04","50000","0","7368129","안현정"],
+                ["2025-09-23","09:00:28","50000","0","7418129","박도영"],
+                ["2025-09-25","14:48:50","40000","0","7458129","김재향중복환급"],
+                ["2025-09-26","09:10:26","50000","0","7508129","이윤옥"],
+                ["2025-09-26","09:10:26","50000","0","7558129","남은숙"],
+                ["2025-09-26","09:10:26","50000","0","7608129","박수민"],
+                ["2025-09-26","09:10:26","50000","0","7658129","한흥식"],
+                ["2025-09-29","08:57:14","50000","0","7708129","이별님"],
+                ["2025-09-29","08:17:21","0","500000","7208129","지휘자사례비"],
+                ["2025-09-29","08:17:21","0","250000","6958129","반주자사례비"],
+                ["2025-09-29","08:17:21","0","200000","6758129","박소정사례비"],
+                ["2025-09-29","08:17:21","80000","0","6838129","이응선 김재향"],
+                ["2025-09-29","08:17:21","50000","0","6888129","임종진"],
+                ["2025-09-29","09:37:06","50000","0","6938129","조지현"],
+                ["2025-09-30","09:00:11","0","500000","6438129","지휘자사례비"],
+                ["2025-09-30","09:00:34","0","250000","6188129","반주자사례비"],
+                ["2025-09-30","09:00:57","0","200000","5988129","박소정사례비"],
+                ["2025-09-30","09:01:30","0","112000","5876129","굿푸드"],
+                ["2025-09-30","09:02:05","0","75000","5801129","김밥"],
+                ["2025-09-30","09:02:38","0","40000","5761129","물품"],
+                ["2025-09-30","09:09:12","40000","0","5801129","김미영"],
+                ["2025-09-30","09:09:12","40000","0","5841129","김정수"],
+                ["2025-09-30","09:09:12","40000","0","5881129","윤정아"],
+                ["2025-09-30","09:50:32","0","638000","5243129","담쟁이"],
+                ["2025-10-01","09:24:37","50000","0","5293129","조현수"],
+                ["2025-10-07","09:00:28","50000","0","5343129","윤진우"],
+                ["2025-10-13","09:09:12","50000","0","5393129","천은아"],
+                ["2025-10-14","09:28:02","50000","0","5443129","안현정"],
+                ["2025-10-21","09:38:50","50000","0","5493129","박도영"],
+                ["2025-10-24","09:18:04","50000","0","5543129","이윤옥"],
+                ["2025-10-24","09:18:04","50000","0","5593129","남은숙"],
+                ["2025-10-24","09:18:04","50000","0","5643129","박수민"],
+                ["2025-10-24","09:18:04","50000","0","5693129","한흥식"],
+                ["2025-10-27","10:18:09","50000","0","5743129","이별님"],
+                ["2025-10-28","08:11:09","80000","0","5823129","이응선 김재향"],
+                ["2025-10-28","09:32:46","50000","0","5873129","조지현"],
+                ["2025-10-28","09:37:17","50000","0","5923129","임종진"],
+                ["2025-10-30","09:00:11","0","500000","5423129","지휘자사례비"],
+                ["2025-10-30","09:00:34","0","250000","5173129","반주자사례비"],
+                ["2025-10-30","09:00:57","0","200000","4973129","박소정사례비"],
+                ["2025-10-30","09:01:30","0","112000","4861129","물품"],
+                ["2025-10-30","09:02:05","0","75000","4786129","행사"],
+                ["2025-10-30","09:02:38","0","40000","4746129","선물"],
+                ["2025-10-30","09:03:11","0","121000","4625129","회의"],
+                ["2025-10-30","09:03:42","0","112620","4512509","총회"],
+                ["2025-10-30","09:04:15","50000","0","4562509","최영희"],
+                ["2025-10-30","09:09:12","40000","0","4602509","김미영"],
+                ["2025-10-30","09:09:12","40000","0","4642509","김정수"],
+                ["2025-10-30","09:09:12","40000","0","4682509","윤정아"],
+                ["2025-10-30","09:09:12","100000","0","4782509","김승연"],
+                ["2025-11-01","09:11:18","234","0","4782743","이자"],
+                ["2025-11-04","09:24:37","50000","0","4832743","조현수"],
+                ["2025-11-04","09:24:37","50000","0","4882743","윤진우"],
+                ["2025-11-08","09:06:44","50000","0","4932743","천은아"],
+                ["2025-11-11","09:18:04","50000","0","4982743","안현정"],
+                ["2025-11-14","09:09:12","50000","0","5032743","박도영"],
+                ["2025-11-20","09:11:18","40000","0","5072743","김미영"],
+                ["2025-11-20","09:11:18","40000","0","5112743","김정수"],
+                ["2025-11-20","09:28:02","50000","0","5162743","이윤옥"],
+                ["2025-11-20","09:28:02","50000","0","5212743","남은숙"],
+                ["2025-11-20","09:28:02","50000","0","5262743","박수민"],
+                ["2025-11-20","09:28:02","50000","0","5312743","한흥식"],
+                ["2025-11-26","09:00:11","40000","0","5352743","윤정아"],
+                ["2025-11-26","09:00:11","80000","0","5432743","이응선"],
+                ["2025-11-26","09:09:12","50000","0","5482743","조지현"],
+                ["2025-11-26","09:09:12","50000","0","5532743","임종진"],
+                ["2025-11-26","09:09:12","50000","0","5582743","이별님"]
+            ];
+
+            const tbody = document.getElementById('transactionTableBody');
+            transactions.forEach(row => {
+                const [date, time, deposit, withdraw, balance, memo] = row;
+                const depositStr = deposit === "0" ? "-" : parseInt(deposit).toLocaleString();
+                const withdrawStr = withdraw === "0" ? "-" : parseInt(withdraw).toLocaleString();
+                const balanceStr = parseInt(balance).toLocaleString();
+                const rowClass = deposit !== "0" ? 'deposit-row' : 'withdraw-row';
+                
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+                tr.innerHTML = `
+                    <td>${date}</td>
+                    <td class="text-center">${time}</td>
+                    <td class="text-right">${depositStr}</td>
+                    <td class="text-right">${withdrawStr}</td>
+                    <td class="text-right">${balanceStr}</td>
+                    <td>${memo}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>
+
